@@ -58,6 +58,13 @@ public class Coord{
     }
 
     @Override
+    public int hashCode(){
+
+        return this.getColumn() * 100 + this.getRow();
+
+    }
+
+    @Override
     public String toString(){
 
         return Character.toString((char) (this.getColumn() + ASCII_SUB)) + this.getRow();
