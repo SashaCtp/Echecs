@@ -82,4 +82,18 @@ class CoordTest {
 
     }
 
+    @Test
+    public void testToString(){
+
+        Coord c = new Coord(1,1);
+        assertEquals("a1", c.toString());
+
+        c = new Coord(2,2);
+        assertEquals("b2", c.toString());
+
+        c = new Coord(4, 5);
+        assertEquals("d5", c.toString());
+
+    }
+
 }

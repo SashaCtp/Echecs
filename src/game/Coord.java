@@ -56,5 +56,12 @@ public class Coord{
 
 
     }
+
+    @Override
+    public String toString(){
+
+        return Character.toString((char) (this.getColumn() + ASCII_SUB)) + this.getRow();
+
+    }
 }
 
