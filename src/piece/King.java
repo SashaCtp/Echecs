@@ -11,7 +11,7 @@ public class King extends Piece {
     public King(Color color){
         this.color = color;
     }
-    
+
     @Override
     public boolean canMove(Coord from, Coord to, Chessboard board) {
 
@@ -19,7 +19,8 @@ public class King extends Piece {
         if(Math.abs(from.getColumn()-to.getColumn()) > 1 || Math.abs(from.getRow()-to.getRow()) > 1)
             return false;
 
-        return false;
+        // On vérifie qu'il n'y à pas de pièce alliée sur le chemin / sur la case d'arrivée
+        return (board.isFree(to) || !board.getPieceAt(to).getColor().equals(this.getColor()));
     }
 
     @Override
@@ -36,4 +37,5 @@ public class King extends Piece {
     public char getSymbole() {
         return 'r';
     }
+
 }
