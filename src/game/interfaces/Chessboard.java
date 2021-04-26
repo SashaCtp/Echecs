@@ -1,4 +1,10 @@
-package game;
+package game.interfaces;
+
+import game.Color;
+import game.Coord;
+import game.exceptions.NoPieceException;
+
+import java.util.ArrayList;
 
 public interface Chessboard {
 
@@ -22,14 +28,14 @@ public interface Chessboard {
      * @param to Case d'arrivée
      * @param player Joueur effectuant l'action
      */
-    void move(Coord from, Coord to, IPlayer player);
+    void move(Coord from, Coord to, IPlayer player) throws NoPieceException;
 
     /**
-     * Retourne la liste des pièces d'un joueur
-     * @param p Joueur
-     * @return Liste des pièces du joueur
+     * Retourne la liste des pièces d'une couleur
+     * @param c Couleur des pièces
+     * @return Liste des pièces d'une couleur
      */
-    IPiece[] getPlayerPieces(IPlayer p);
+    ArrayList<IPiece> getColorPieces(Color c);
 
     /**
      * Retourne les coordonnées d'une pièce
