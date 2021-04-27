@@ -18,6 +18,15 @@ public class Coord{
         this.row = row;
     }
 
+    /**
+     * Constructeur par copie
+     * @param coord Coordonnées à copier
+     */
+    public Coord(Coord coord){
+        this.column = coord.getColumn();
+        this.row = coord.getRow();
+    }
+
     public Coord(String str) throws WrongCoordinatesFormatException{
 
         if(!correctFormat(str))
@@ -53,7 +62,6 @@ public class Coord{
         Coord c = (Coord) o;
 
         return c.getColumn() == this.getColumn() && c.getRow() == this.getRow();
-
 
     }
 
