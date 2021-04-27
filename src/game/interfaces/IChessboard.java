@@ -2,11 +2,15 @@ package game.interfaces;
 
 import game.Color;
 import game.Coord;
-import game.exceptions.NoPieceException;
+import game.exceptions.CoordinatesOutOfBoundsException;
+import game.exceptions.EmptySquareException;
+import game.exceptions.IllegalMoveException;
+import game.exceptions.WrongColorException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public interface Chessboard {
+public interface IChessboard {
 
     /**
      * Vérifie si une case est vide ou non
@@ -26,9 +30,16 @@ public interface Chessboard {
      * Déplace une pièce d'une case à une autre
      * @param from Case de départ
      * @param to Case d'arrivée
-     * @param player Joueur effectuant l'action
+     * @param playingColor Couleur du joueur effectuant l'action
      */
-    void move(Coord from, Coord to, IPlayer player) throws NoPieceException;
+    void move(Coord from, Coord to, Color playingColor) throws EmptySquareException, CoordinatesOutOfBoundsException, WrongColorException, IllegalMoveException;
+
+    /**
+     * Vérifie si le joueur d'une couleur est en échec
+     * @param color Couleur du joueur
+     * @return True : La joueur de la couleur est en échec, False sinon
+     */
+    boolean isCheck(Color color);
 
     /**
      * Retourne la liste des pièces d'une couleur
@@ -62,5 +73,23 @@ public interface Chessboard {
      * @param coo Coordonnées
      */
     void removePieceAt(Coord coo);
+
+    /**
+     * Retourne le nombre de lignes sur l'échiquier
+     * @return Nombre de lignes
+     */
+    int getRows();
+
+    /**
+     * Retourne le nombre de colonnes sur l'échiquier
+     * @return Nombre de colonnes
+     */
+    int getCols();
+
+    /**
+     * Retourne la liste des pièces avec leurs coordonnées
+     * @return Liste des pièces
+     */
+    HashMap<Coord, IPiece> getPieces();
 
 }
