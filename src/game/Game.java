@@ -7,7 +7,7 @@ public class Game {
     private int currentPlayerIndex;
     private IPlayer[] players;
 
-    private Chessboard chessboard;
+    private IChessboard chessboard;
 
     // Factories
     private PieceFactory pieceFactory;
