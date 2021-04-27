@@ -36,6 +36,31 @@ class KingTest {
     }
 
     @Test
+    void matchPattern(){
+
+        King k = new King(Color.WHITE);
+
+        // Le roi ne peut pas rester sur place
+        assertFalse(k.matchPattern(new Coord(1,1), new Coord(1,1)));
+
+        // Le roi ne peut se déplacer plus loin que les cases adjacentes
+        assertFalse(k.matchPattern(new Coord(1,1), new Coord(2,3)));
+        assertFalse(k.matchPattern(new Coord(1,1), new Coord(3,2)));
+        assertFalse(k.matchPattern(new Coord(1,1), new Coord(4,1)));
+
+        // La tour peut uniquement se déplacer sur les cases adjacentes
+        for(int i = -1; i <= 1; i++){
+            for(int j = -1; j <= 1; j++){
+
+                if(!(i == 0 && j == 0))
+                    assertTrue(k.matchPattern(new Coord(4,4), new Coord(4+i,4+j)));
+
+            }
+        }
+
+    }
+
+    @Test
     void isBlocked(){
 
         Chessboard b = new Chessboard();

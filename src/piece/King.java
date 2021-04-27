@@ -16,7 +16,7 @@ public class King extends Piece {
         int dx = from.getColumn() - to.getColumn();
         int dy = from.getRow() - to.getRow();
 
-        return (Math.abs(dx) <= 1 || Math.abs(dy) <= 1) && !(dx == 0 && dy == 0);
+        return (Math.abs(dx) <= 1 && Math.abs(dy) <= 1) && !(dx == 0 && dy == 0);
 
     }
 
