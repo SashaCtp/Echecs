@@ -2,25 +2,29 @@ package piece;
 
 import game.Color;
 import game.Coord;
-import game.interfaces.Chessboard;
+import game.interfaces.IChessboard;
 
 public class King extends Piece {
 
-    private Color color;
-
     public King(Color color){
-        this.color = color;
+        super(color);
     }
 
     @Override
-    public boolean canMove(Coord from, Coord to, Chessboard board) {
+    public boolean matchPattern(Coord from, Coord to) {
 
-        // Le roi ne peut se déplacer que dans les cases environnantes
-        if(Math.abs(from.getColumn()-to.getColumn()) > 1 || Math.abs(from.getRow()-to.getRow()) > 1)
-            return false;
+        int dx = from.getColumn() - to.getColumn();
+        int dy = from.getRow() - to.getRow();
 
-        // On vérifie qu'il n'y à pas de pièce alliée sur le chemin / sur la case d'arrivée
-        return (board.isFree(to) || !board.getPieceAt(to).getColor().equals(this.getColor()));
+        return (Math.abs(dx) <= 1 || Math.abs(dy) <= 1) && !(dx == 0 && dy == 0);
+
+    }
+
+    @Override
+    public boolean isBlocked(Coord from, Coord to, IChessboard board){
+
+        return (!board.isFree(to) && board.getPieceAt(to).getColor().equals(this.getColor()));
+
     }
 
     @Override
@@ -28,13 +32,7 @@ public class King extends Piece {
         return true;
     }
 
-    @Override
-    public Color getColor() {
-        return this.color;
-    }
-
-    @Override
-    public char getSymbole() {
+    public char getLowerSymbole() {
         return 'r';
     }
 
