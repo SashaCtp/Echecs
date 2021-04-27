@@ -92,4 +92,10 @@ public interface IChessboard {
      */
     HashMap<Coord, IPiece> getPieces();
 
+    /**
+     * Retourne la représentation textuelle de l'échiquier
+     */
+    @Override
+    String toString();
+
 }
