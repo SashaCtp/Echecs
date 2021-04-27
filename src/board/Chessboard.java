@@ -81,6 +81,10 @@ public class Chessboard implements IChessboard {
 
         if(movingPiece.canMove(from, to, this)){
             this.removePiece(movingPiece);
+
+            if(!this.isFree(to))
+                this.removePieceAt(to);
+
             this.place(movingPiece, to);
         }else{
             throw new IllegalMoveException();
