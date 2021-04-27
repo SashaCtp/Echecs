@@ -202,8 +202,8 @@ public class Chessboard implements IChessboard {
         }
 
         // Pieces
-        for(Coord coo: this.pieces.keySet())
-            display[2*coo.getRow()][4*coo.getColumn()] = this.pieces.get(coo).getSymbole();
+        for(HashMap.Entry<Coord, IPiece> entry : this.pieces.entrySet())
+            display[2 * (this.getRows() + 1 - entry.getKey().getRow())][4 * entry.getKey().getColumn()] = entry.getValue().getSymbole();
 
         StringBuilder str = new StringBuilder();
         for(char[] l : display) {
