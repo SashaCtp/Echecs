@@ -26,6 +26,36 @@ public class Game {
 
     }
 
+    /**
+     * Initialise la partie
+     */
+    public void init(){
+
+        // Kings
+        this.chessboard.place(this.pieceFactory.newPiece(0, Color.WHITE), new Coord(5,1));
+        this.chessboard.place(this.pieceFactory.newPiece(0, Color.BLACK), new Coord(5, 8));
+
+        // Rooks
+        this.chessboard.place(this.pieceFactory.newPiece(1, Color.WHITE), new Coord(1,1));
+        this.chessboard.place(this.pieceFactory.newPiece(1, Color.WHITE), new Coord(8,1));
+        this.chessboard.place(this.pieceFactory.newPiece(1, Color.BLACK), new Coord(1,8));
+        this.chessboard.place(this.pieceFactory.newPiece(1, Color.BLACK), new Coord(8,8));
+
+    }
+
+    /**
+     * Retourne l'échiquier
+     * @return Échiquier
+     */
+    public IChessboard getChessboard(){
+        return this.chessboard;
+    }
+
+    /**
+     * Renvoie la couleur de l'opposant
+     * @param c Couleur du joueur
+     * @return Couleur de l'opposant
+     */
     public static Color getOpponentColor(Color c){
         return c.equals(Color.WHITE) ? Color.BLACK : Color.WHITE;
     }
