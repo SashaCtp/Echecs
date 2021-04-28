@@ -9,7 +9,6 @@ import game.Coord;
 import game.interfaces.IPiece;
 import game.exceptions.EmptySquareException;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Chessboard implements IChessboard {
@@ -99,13 +98,13 @@ public class Chessboard implements IChessboard {
     }
 
     @Override
-    public ArrayList<IPiece> getColorPieces(Color c) {
+    public HashMap<Coord, IPiece> getColorPieces(Color c) {
 
-        ArrayList<IPiece> colorPieces = new ArrayList<>();
+        HashMap<Coord, IPiece> colorPieces = new HashMap<>();
 
         for (HashMap.Entry<Coord, IPiece> entry : pieces.entrySet()){
             if (entry.getValue().getColor() == c)
-                colorPieces.add(entry.getValue());
+                colorPieces.put(new Coord(entry.getKey()), entry.getValue());
         }
 
         return colorPieces;
@@ -116,7 +115,10 @@ public class Chessboard implements IChessboard {
 
         for(HashMap.Entry<Coord, IPiece> entry : pieces.entrySet()){
 
-            if(entry.getValue().getColor() == c && entry.getValue().isCheckable() && entry.getValue().isAttacked(this))
+            // Le joueur de la couleur est en échec si une pièce qui peut être mise en échec est attaquée
+            if(entry.getValue().getColor() == c
+                    && entry.getValue().isCheckable()
+                    && entry.getValue().isAttacked(entry.getKey(), this))
                 return true;
 
         }

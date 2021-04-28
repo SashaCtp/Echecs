@@ -7,6 +7,8 @@ import game.Game;
 import game.interfaces.IChessboard;
 import game.interfaces.IPiece;
 
+import java.util.HashMap;
+
 public abstract class Piece implements IPiece {
 
     private Color color;
@@ -70,16 +72,11 @@ public abstract class Piece implements IPiece {
         return false;
     }
 
-    /**
-     * Vérifie si la pièce est attaquée
-     * @param chessboard Échiquier sur lequel se trouve la pièce
-     * @return True: La pièce est attaquée par une ou plusieurs pièces, False sinon
-     */
-    public boolean isAttacked(IChessboard chessboard){
+    public boolean isAttacked(Coord coord, IChessboard chessboard){
 
-        for(IPiece piece : chessboard.getColorPieces(Game.getOpponentColor(this.getColor()))){
+        for(HashMap.Entry<Coord, IPiece> entry : chessboard.getColorPieces(Game.getOpponentColor(this.getColor())).entrySet()){
 
-            if(piece.canMove(chessboard.getCoordinates(piece), chessboard.getCoordinates(this), chessboard))
+            if(entry.getValue().canMove(entry.getKey(), coord, chessboard))
                 return true;
 
         }

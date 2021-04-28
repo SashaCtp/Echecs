@@ -7,7 +7,6 @@ import game.exceptions.EmptySquareException;
 import game.exceptions.IllegalMoveException;
 import game.exceptions.WrongColorException;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface IChessboard {
@@ -46,7 +45,7 @@ public interface IChessboard {
      * @param c Couleur des pièces
      * @return Liste des pièces d'une couleur
      */
-    ArrayList<IPiece> getColorPieces(Color c);
+    HashMap<Coord, IPiece> getColorPieces(Color c);
 
     /**
      * Retourne les coordonnées d'une pièce
@@ -56,7 +55,7 @@ public interface IChessboard {
     Coord getCoordinates(IPiece piece);
 
     /**
-     * Place une pièce sur l'échiquier
+     * Place une pièce sur l'échiquier si la case est vide
      * @param piece Pièce à placer
      * @param coo Coordonnées où placer la pièce
      */

@@ -34,10 +34,11 @@ public interface IPiece {
 
     /**
      * Vérifie si la pièce est attaquée
+     * @param coord Coordonnées auxquelles se trouve la pièce
      * @param chessboard Échiquier sur lequel se trouve la pièce
      * @return True: La pièce est attaquée par une ou plusieurs pièces, False sinon
      */
-    boolean isAttacked(IChessboard chessboard);
+    boolean isAttacked(Coord coord, IChessboard chessboard);
 
     /**
      * Vérifie si la pièce peut être mise en échec

@@ -1,5 +1,7 @@
 package board;
 
+import appli.ChessboardFact;
+import appli.PieceFact;
 import game.Color;
 import game.exceptions.CoordinatesOutOfBoundsException;
 import game.exceptions.EmptySquareException;
@@ -90,11 +92,6 @@ class ChessboardTest {
     }
 
     @Test
-    void getColorPieces() {
-
-    }
-
-    @Test
     void isCheck(){
 
         // Le roi noir est en : d4
@@ -148,6 +145,22 @@ class ChessboardTest {
 
     @Test
     void place() {
+
+        Chessboard chessboard = new Chessboard();
+
+        int c = new Random().nextInt(8) + 1;
+        int r = new Random().nextInt(8) + 1;
+
+        IPiece piece = (new PieceFact()).newPiece(0, Color.WHITE);
+
+        chessboard.place(piece, new Coord(c,r));
+
+        assertTrue(chessboard.getPieces().containsKey(new Coord(c,r)));
+        assertTrue(chessboard.getPieces().containsValue(piece));
+        assertEquals(piece, chessboard.getPieces().get(new Coord(c,r)));
+
+        assertEquals(piece, chessboard.getPieceAt(new Coord(c,r)));
+
     }
 
     @Test
