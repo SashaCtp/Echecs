@@ -91,7 +91,8 @@ public class Chessboard implements IChessboard {
 
     }
 
-    private boolean coordinatesOutOfBounds(Coord coord){
+    @Override
+    public boolean coordinatesOutOfBounds(Coord coord){
 
         return coord.getRow() <= 0 || coord.getColumn() <= 0 || coord.getRow() > this.rows || coord.getColumn() > this.cols;
 

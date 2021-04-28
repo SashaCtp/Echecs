@@ -41,12 +41,24 @@ public class Coord{
         return str.length() == 2 && Character.isAlphabetic(str.charAt(0)) && Character.isDigit(str.charAt(1));
     }
 
+    public Coord next(Direction direction){
+        return new Coord(this.getColumn() + direction.getDx(), this.getRow() + direction.getDy());
+    }
+
     public int getRow() {
         return this.row;
     }
 
     public int getColumn() {
         return this.column;
+    }
+
+    public void setRow(int row){
+        this.row = row;
+    }
+
+    public void setColumn(int column){
+        this.column = column;
     }
 
     @Override
