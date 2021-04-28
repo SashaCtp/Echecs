@@ -41,6 +41,13 @@ public interface IChessboard {
     boolean isCheck(Color color);
 
     /**
+     * Vérifie si des coordonnées sont en dehors du plateau
+     * @param coord Coordonnées à vérifier
+     * @return True : Les coordonnées sont en dehors du plateau, False sinon
+     */
+    boolean coordinatesOutOfBounds(Coord coord);
+
+    /**
      * Retourne la liste des pièces d'une couleur
      * @param c Couleur des pièces
      * @return Liste des pièces d'une couleur
