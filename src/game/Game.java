@@ -37,14 +37,18 @@ public class Game {
     public void init(){
 
         // Kings
-        this.chessboard.place(this.pieceFactory.newPiece(0, Color.WHITE), new Coord(5,1));
-        this.chessboard.place(this.pieceFactory.newPiece(0, Color.BLACK), new Coord(5, 8));
+        getChessboard().place(this.pieceFactory.newPiece(0, Color.WHITE), new Coord(5,1));
+        getChessboard().place(this.pieceFactory.newPiece(0, Color.BLACK), new Coord(5, 8));
+
+        // Queens
+        getChessboard().place(this.pieceFactory.newPiece(1, Color.WHITE), new Coord(4,1));
+        getChessboard().place(this.pieceFactory.newPiece(1, Color.BLACK), new Coord(4,8));
 
         // Rooks
-        this.chessboard.place(this.pieceFactory.newPiece(1, Color.WHITE), new Coord(1,1));
-        this.chessboard.place(this.pieceFactory.newPiece(1, Color.WHITE), new Coord(8,1));
-        this.chessboard.place(this.pieceFactory.newPiece(1, Color.BLACK), new Coord(1,8));
-        this.chessboard.place(this.pieceFactory.newPiece(1, Color.BLACK), new Coord(8,8));
+        getChessboard().place(this.pieceFactory.newPiece(2, Color.WHITE), new Coord(1,1));
+        getChessboard().place(this.pieceFactory.newPiece(2, Color.WHITE), new Coord(8,1));
+        getChessboard().place(this.pieceFactory.newPiece(2, Color.BLACK), new Coord(1,8));
+        getChessboard().place(this.pieceFactory.newPiece(2, Color.BLACK), new Coord(8,8));
 
     }
 
