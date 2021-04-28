@@ -17,6 +17,7 @@ public abstract class Piece implements IPiece {
         this.color = color;
     }
 
+    @Override
     public boolean canMove(Coord from, Coord to, IChessboard board) {
 
         // Si le déplacement correspond au pattern de la piece
@@ -42,6 +43,7 @@ public abstract class Piece implements IPiece {
         return true;
     }
 
+    @Override
     public boolean isBlocked(Coord from, Coord to, IChessboard board){
         assert matchPattern(from, to);
 
@@ -72,6 +74,7 @@ public abstract class Piece implements IPiece {
         return false;
     }
 
+    @Override
     public boolean isAttacked(Coord coord, IChessboard chessboard){
 
         for(HashMap.Entry<Coord, IPiece> entry : chessboard.getColorPieces(Game.getOpponentColor(this.getColor())).entrySet()){
@@ -84,6 +87,7 @@ public abstract class Piece implements IPiece {
         return false;
     }
 
+    @Override
     public char getSymbole(){
 
         if(this.getColor().equals(Color.WHITE))
@@ -92,14 +96,30 @@ public abstract class Piece implements IPiece {
         return this.getLowerSymbole();
     }
 
+    @Override
     public boolean isCheckable(){
         return false;
     }
 
+    @Override
     public Color getColor() {
         return this.color;
     }
 
+    // Méthodes abstraites ==========----------
+
+    /**
+     * Vérifie si le déplacement correspond au pattern de déplacement de la pièce
+     * @param from Coordonnées de la case d'origine
+     * @param to Coordonnées de la case de destination
+     * @return True : Le déplacement correspond, False sinon
+     */
+    abstract boolean matchPattern(Coord from, Coord to);
+
+    /**
+     * Retourne le symbole en minuscule
+     * @return Symbole en minuscule
+     */
     abstract char getLowerSymbole();
 
 }
