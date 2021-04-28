@@ -69,7 +69,18 @@ class CoordTest {
     }
 
     @Test
-    public void testEquals(){
+    void next(){
+
+        Coord coord = new Coord(1,1);
+
+        Direction direction = new Direction(1,0);
+
+        assertEquals(new Coord(2,1) ,coord.next(direction));
+
+    }
+
+    @Test
+    void testEquals(){
 
         assertDoesNotThrow(() -> {
             Coord b7 = new Coord("b7");
@@ -83,7 +94,7 @@ class CoordTest {
     }
 
     @Test
-    public void testToString(){
+    void testToString(){
 
         Coord c = new Coord(1,1);
         assertEquals("a1", c.toString());
