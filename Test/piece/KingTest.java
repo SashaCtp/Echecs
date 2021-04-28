@@ -111,9 +111,9 @@ class KingTest {
         assertTrue(k.isBlocked(new Coord(2,2), new Coord(1,2), b));
         b.removePieceAt(new Coord(1,2));
 
-        // Pas bloqué par une pièce Noire sur la case de destination
-        b.place(new Rook(Color.BLACK), new Coord(5,2));
-        assertFalse(k.isBlocked(new Coord(2,2), new Coord(5,2), b));
+        // Pas bloqué par une pièce Noire sur la case de destination (a1)
+        b.place(new Rook(Color.BLACK), new Coord(1,2));
+        assertFalse(k.isBlocked(new Coord(2,2), new Coord(1,2), b));
         b.removePieceAt(new Coord(5,2));
 
     }

@@ -26,13 +26,6 @@ public class King extends Piece {
     }
 
     @Override
-    public boolean isBlocked(Coord from, Coord to, IChessboard board){
-
-        return (!board.isFree(to) && board.getPieceAt(to).getColor().equals(this.getColor()));
-
-    }
-
-    @Override
     public boolean isCheckable() {
         return true;
     }
