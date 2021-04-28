@@ -6,9 +6,44 @@ import game.Coord;
 import game.interfaces.IPiece;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class KingTest {
+
+    @Test
+    void getLegalMoves(){
+
+        Chessboard b = new Chessboard();
+        King k = new King(Color.WHITE);
+
+        b.place(k, new Coord(4,4));
+
+        ArrayList<Coord> legalMoves = k.getLegalMoves(new Coord(4,4), b);
+
+        // On vérifie d'abord qu'il peut se déplacer vers les cases voisines
+        assertTrue(legalMoves.contains(new Coord(3,3)));
+        assertTrue(legalMoves.contains(new Coord(3,4)));
+        assertTrue(legalMoves.contains(new Coord(4,3)));
+
+        // Il ne peut pas se déplacer en dehors des cases voisines
+        assertFalse(legalMoves.contains(new Coord(6,6)));
+        assertFalse(legalMoves.contains(new Coord(4,6)));
+        assertFalse(legalMoves.contains(new Coord(4,2)));
+
+        // Lorsque l'on place une pièce alliée sur une case, il ne peut plus y aller (Pièce à gauche du roi)
+        b.place(new King(Color.WHITE), new Coord(3,4));
+
+        // On actualise la liste des mouvements légaux
+        legalMoves = k.getLegalMoves(new Coord(4,4), b);
+
+        assertTrue(legalMoves.contains(new Coord(5,4)));
+        assertTrue(legalMoves.contains(new Coord(3,5)));
+        assertTrue(legalMoves.contains(new Coord(3,3)));
+        assertFalse(legalMoves.contains(new Coord(3,4)));
+
+    }
 
     @Test
     void canMove() {

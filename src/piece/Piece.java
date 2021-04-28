@@ -3,10 +3,12 @@ package piece;
 import board.Chessboard;
 import game.Color;
 import game.Coord;
+import game.Direction;
 import game.Game;
 import game.interfaces.IChessboard;
 import game.interfaces.IPiece;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class Piece implements IPiece {
@@ -15,6 +17,33 @@ public abstract class Piece implements IPiece {
 
     public Piece(Color color){
         this.color = color;
+    }
+
+    @Override
+    public ArrayList<Coord> getLegalMoves(Coord from, IChessboard chessboard) {
+
+        ArrayList<Coord> legalMoves = new ArrayList<>();
+
+        for(Direction dir : this.getLegalDirections()){
+
+            Coord current = from.next(dir);
+
+            while(!chessboard.coordinatesOutOfBounds(current)
+                    && matchPattern(from, current)
+                    && (
+                    chessboard.isFree(current)
+                            || (!chessboard.isFree(current) && chessboard.getPieceAt(current).getColor().equals(Game.getOpponentColor(this.getColor())))
+            )) {
+
+                if(!putPlayerInCheck(from, current, chessboard, this.getColor()))
+                    legalMoves.add(new Coord(current));
+
+                current = current.next(dir);
+            }
+
+        }
+
+        return legalMoves;
     }
 
     @Override
@@ -31,13 +60,7 @@ public abstract class Piece implements IPiece {
         // Si le déplacement ne met pas le roi en danger (en échec)
         // => Pour cela, on effectue le déplacement sur un faux échiquier
         // => Si le roi est en échec : illégal
-        Chessboard tmpBoard = new Chessboard(board);
-        tmpBoard.removePiece(this);
-        if(!tmpBoard.isFree(to))
-            tmpBoard.removePieceAt(to);
-        tmpBoard.place(this, to);
-
-        if(tmpBoard.isCheck(this.getColor()))
+        if(putPlayerInCheck(from, to, board, this.getColor()))
             return false;
 
         return true;
@@ -72,6 +95,25 @@ public abstract class Piece implements IPiece {
         }
         // Si rien ne bloque, on retourne true
         return false;
+    }
+
+    /**
+     * Vérifie si un déplacement met en échec une couleur
+     * @param from Case d'origine
+     * @param to Case de destination
+     * @param board Échiquier
+     * @param color Couleur du joueur
+     * @return True : Le déplacement met en échec le roi de la couleur, False sinon
+     */
+    public boolean putPlayerInCheck(Coord from, Coord to, IChessboard board, Color color){
+        Chessboard tmpBoard = new Chessboard(board);
+        tmpBoard.removePieceAt(from);
+
+        if(!tmpBoard.isFree(to))
+            tmpBoard.removePieceAt(to);
+        tmpBoard.place(this, to);
+
+        return tmpBoard.isCheck(color);
     }
 
     @Override
@@ -115,6 +157,12 @@ public abstract class Piece implements IPiece {
      * @return True : Le déplacement correspond, False sinon
      */
     abstract boolean matchPattern(Coord from, Coord to);
+
+    /**
+     * Retourne la liste des directions dans lesquelles la pièce peut se déplacer
+     * @return Liste de directions
+     */
+    public abstract Direction[] getLegalDirections();
 
     /**
      * Retourne le symbole en minuscule

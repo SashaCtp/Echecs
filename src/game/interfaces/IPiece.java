@@ -2,6 +2,9 @@ package game.interfaces;
 
 import game.Color;
 import game.Coord;
+import game.Direction;
+
+import java.util.ArrayList;
 
 public interface IPiece {
 
@@ -33,6 +36,14 @@ public interface IPiece {
     boolean isAttacked(Coord coord, IChessboard chessboard);
 
     /**
+     * Retourne une liste de déplacement légaux à partir d'une certaine position
+     * @param from Position de départ
+     * @param chessboard Echiquier sur lequel la pièce se déplace
+     * @return Liste des déplacement légaux
+     */
+    ArrayList<Coord> getLegalMoves(Coord from, IChessboard chessboard);
+
+    /**
      * Vérifie si la pièce peut être mise en échec
      * @return True si la pièce peut être mise en échec, False sinon (les pièces normales)
      */
@@ -50,4 +61,5 @@ public interface IPiece {
      */
     char getSymbole();
 
+    Direction[] getLegalDirections();
 }
