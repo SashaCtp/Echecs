@@ -1,6 +1,11 @@
 package game;
 
+import game.exceptions.CoordinatesOutOfBoundsException;
+import game.exceptions.InvalidPlayerInput;
+import game.exceptions.WrongCoordinatesFormatException;
 import game.interfaces.*;
+
+import java.util.Map;
 
 public class Game {
 
@@ -11,18 +16,18 @@ public class Game {
 
     // Factories
     private PieceFactory pieceFactory;
-    private PlayerFactory playerFactory;
     /**
      * Constructor
      * @param pieceFact Fabrique de pièces d'échec
-     * @param playerFact Fabrique de joueur
      * @param chessboardFact Fabrique d'échiquier
      */
-    public Game(PieceFactory pieceFact, PlayerFactory playerFact, ChessboardFactory chessboardFact){
+    public Game(PieceFactory pieceFact, ChessboardFactory chessboardFact, PlayerFactory playerFactory){
 
         this.pieceFactory = pieceFact;
-        this.playerFactory = playerFact;
         this.chessboard = chessboardFact.newChessboard();
+
+        this.players = new IPlayer[]{ playerFactory.newPlayer(0, Color.WHITE), playerFactory.newPlayer(0, Color.BLACK) };
+        this.currentPlayerIndex = 0;
 
     }
 
@@ -40,6 +45,153 @@ public class Game {
         this.chessboard.place(this.pieceFactory.newPiece(1, Color.WHITE), new Coord(8,1));
         this.chessboard.place(this.pieceFactory.newPiece(1, Color.BLACK), new Coord(1,8));
         this.chessboard.place(this.pieceFactory.newPiece(1, Color.BLACK), new Coord(8,8));
+
+    }
+
+    /**
+     * Lance la partie
+     */
+    public void launchGame(){
+
+        // Boucle de jeu principale
+        while (canPlay(getCurrentPlayer().getColor())){
+
+
+            System.out.println("Au tour du joueur " + getCurrentPlayer().getColor());
+            getCurrentPlayer().displayBoard(getChessboard());
+
+            boolean validAction = false;
+
+            while (!validAction){
+                try {
+
+                    Coord[] parsedAction = parseAction(getCurrentPlayer().play());
+                    getChessboard().move(parsedAction[0], parsedAction[1], getCurrentPlayer().getColor());
+                    validAction = true;
+
+                }catch (Exception e){
+                    validAction = false;
+                }
+            }
+
+            nextPlayer();
+
+        }
+
+        if(isCheckMate(getCurrentPlayer().getColor()))
+            System.out.println("Les " + getCurrentPlayer().getColor() + " sont MAT");
+
+        if(isPat(getCurrentPlayer().getColor()))
+            System.out.println("Les " + getCurrentPlayer().getColor() + " sont PAT");
+
+    }
+
+    private Coord[] parseAction(String playerAction) throws InvalidPlayerInput, WrongCoordinatesFormatException, CoordinatesOutOfBoundsException {
+
+        if (!(playerAction.length() == 4 &&
+                Character.isDigit(playerAction.charAt(1)) &&
+                Character.isDigit(playerAction.charAt(3)) &&
+                Character.isAlphabetic(playerAction.charAt(0)) &&
+                Character.isAlphabetic(playerAction.charAt(2))))
+            throw new InvalidPlayerInput();
+
+        System.out.println("Debug 1");
+
+        Coord[] parsedAction = new Coord[2];
+
+        parsedAction[0] = new Coord(playerAction.substring(0, 2));
+        parsedAction[1] = new Coord(playerAction.substring(2, 4));
+
+        System.out.println("Debug 2");
+
+        if(getChessboard().coordinatesOutOfBounds(parsedAction[0]) || getChessboard().coordinatesOutOfBounds(parsedAction[1]))
+            throw new CoordinatesOutOfBoundsException();
+
+        System.out.println("Debug 3");
+
+        System.out.println("From: " + parsedAction[0] + " | To: " + parsedAction[1]);
+
+        return parsedAction;
+
+    }
+
+    /**
+     * Retourne le joueur courrant
+     */
+    public IPlayer getCurrentPlayer(){
+        if(currentPlayerIndex >= 2)
+            return null;
+
+        return this.players[this.currentPlayerIndex];
+    }
+
+    /**
+     * Passe au joueur suivant
+     */
+    private void nextPlayer(){
+        this.currentPlayerIndex = (this.currentPlayerIndex + 1)%2;
+    }
+
+    /**
+     * Vérifie si un joueur d'une couleur peut jouer ou non
+     * @param color Couleur du joueur
+     * @return True : Le joueur peut jouer, False sinon
+     */
+    public boolean canPlay(Color color){
+        return !(isCheckMate(color) || isPat(color));
+    }
+
+    /**
+     * Vérifie si un joueur d'une couleur est échec est mat
+     * @param color Couleur du joueur
+     * @return True : Mat, False sinon
+     */
+    public boolean isCheckMate(Color color){
+
+        if(canMovePieces(color))
+            return false;
+
+        for(Map.Entry<Coord, IPiece> entry : this.getChessboard().getColorPieces(color).entrySet()){
+            if(entry.getValue().isCheckable() && entry.getValue().isAttacked(entry.getKey(), this.getChessboard()))
+                return true;
+        }
+
+        return false;
+
+    }
+
+    /**
+     * Vérifie si un joueur d'une couleur est pat
+     * @param color Couleur du joueur
+     * @return True : Pat, False sinon
+     */
+    public boolean isPat(Color color){
+
+        if(canMovePieces(color))
+            return false;
+
+        for(Map.Entry<Coord, IPiece> entry : this.getChessboard().getColorPieces(color).entrySet()){
+            if(entry.getValue().isCheckable() && entry.getValue().isAttacked(entry.getKey(), this.getChessboard()))
+                return false;
+        }
+
+        return true;
+
+    }
+
+    /**
+     * Vérifie si une couleur peut bouger des pièces
+     */
+    public boolean canMovePieces(Color color){
+
+        for(Map.Entry<Coord, IPiece> entry : this.getChessboard().getColorPieces(color).entrySet()){
+
+            if(!entry.getValue().getLegalMoves(entry.getKey(), this.getChessboard()).isEmpty())
+                return true;
+
+        }
+
+        return false;
 
     }
 
