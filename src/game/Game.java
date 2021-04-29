@@ -99,21 +99,13 @@ public class Game {
                 Character.isAlphabetic(playerAction.charAt(2))))
             throw new InvalidPlayerInput();
 
-        System.out.println("Debug 1");
-
         Coord[] parsedAction = new Coord[2];
 
         parsedAction[0] = new Coord(playerAction.substring(0, 2));
         parsedAction[1] = new Coord(playerAction.substring(2, 4));
 
-        System.out.println("Debug 2");
-
         if(getChessboard().coordinatesOutOfBounds(parsedAction[0]) || getChessboard().coordinatesOutOfBounds(parsedAction[1]))
             throw new CoordinatesOutOfBoundsException();
-
-        System.out.println("Debug 3");
-
-        System.out.println("From: " + parsedAction[0] + " | To: " + parsedAction[1]);
 
         return parsedAction;
 
