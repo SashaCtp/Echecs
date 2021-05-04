@@ -8,9 +8,10 @@ public interface IPlayer {
 
     /**
      * Demande l'action voulu au joueur
+     * @param chessboard Échiquier actuel
      * @return Action
      */
-    String play();
+    String play(IChessboard chessboard);
 
     /**
      * Retourne la couleur du joueur

@@ -12,7 +12,7 @@ public class HumanPlayer extends Player{
     }
 
     @Override
-    public String play() {
+    public String play(IChessboard chessboard) {
 
         String inp = "";
 

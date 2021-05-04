@@ -26,7 +26,7 @@ public class Game {
         this.pieceFactory = pieceFact;
         this.chessboard = chessboardFact.newChessboard();
 
-        this.players = new IPlayer[]{ playerFactory.newPlayer(0, Color.WHITE), playerFactory.newPlayer(0, Color.BLACK) };
+        this.players = new IPlayer[]{ playerFactory.newPlayer(0, Color.WHITE), playerFactory.newPlayer(1, Color.BLACK) };
         this.currentPlayerIndex = 0;
 
     }
@@ -69,7 +69,7 @@ public class Game {
             while (!validAction){
                 try {
 
-                    Coord[] parsedAction = parseAction(getCurrentPlayer().play());
+                    Coord[] parsedAction = parseAction(getCurrentPlayer().play(getChessboard()));
                     getChessboard().move(parsedAction[0], parsedAction[1], getCurrentPlayer().getColor());
                     validAction = true;
 
