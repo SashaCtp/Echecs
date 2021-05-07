@@ -2,9 +2,8 @@
     <img width="200" src="docs/logo.png" alt="Pieces d'échec">
 </p>
 
-<h1 align="center">Jeu d'échecs</h1>
-
-Projet de BPO - 1ère année d'IUT Informatique
+<h2 align="center">Jeu d'échecs</h2>
+<p align="center"><strong>Projet de BPO - 1ère année d'IUT Informatique</strong></p>
 
 Le but de ce projet est de refaire, en Java, un jeu d'échec.
 
