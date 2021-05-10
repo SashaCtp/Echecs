@@ -29,4 +29,20 @@ public class Direction {
     public String toString(){
         return "(" + getDx() + ", " + getDy() + ")";
     }
+
+    @Override
+    public boolean equals(Object obj){
+
+        if(obj == null)
+            return false;
+        if(obj == this)
+            return true;
+        if(!(obj instanceof Direction))
+            return false;
+
+        Direction dir = (Direction) obj;
+
+        return getDx() == dir.getDx() && getDy() == dir.getDy();
+
+    }
 }
