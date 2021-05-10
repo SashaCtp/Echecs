@@ -34,6 +34,6 @@ public class Bishop extends Piece {
 
     @Override
     char getLowerSymbole() {
-        return 'b';
+        return 'f';
     }
 }

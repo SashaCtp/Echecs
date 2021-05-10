@@ -48,6 +48,6 @@ class BishopTest {
     @Test
     void getLowerSymbole() {
         Bishop b = new Bishop(Color.WHITE);
-        assertEquals('b', b.getLowerSymbole());
+        assertEquals('f', b.getLowerSymbole());
     }
 }
