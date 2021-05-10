@@ -25,7 +25,11 @@ public class SimpleAI extends Player{
         Coord from = (Coord) chessboard.getColorPieces(getColor()).keySet().toArray()[r.nextInt(chessboard.getColorPieces(getColor()).keySet().size())];
         ArrayList<Coord> legalMoves = chessboard.getPieceAt(from).getLegalMoves(from, chessboard);
 
-        return from.toString() + legalMoves.get(r.nextInt(legalMoves.size())).toString();
+        String move = from.toString() + legalMoves.get(r.nextInt(legalMoves.size())).toString();
+
+        System.out.println("> L'IA a joué : " + move);
+
+        return move;
     }
 
     @Override

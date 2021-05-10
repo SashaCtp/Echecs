@@ -56,6 +56,12 @@ public class Game {
         getChessboard().place(this.pieceFactory.newPiece(3, Color.BLACK), new Coord(3,8));
         getChessboard().place(this.pieceFactory.newPiece(3, Color.BLACK), new Coord(6,8));
 
+        // Knights
+        getChessboard().place(this.pieceFactory.newPiece(4, Color.WHITE), new Coord(2,1));
+        getChessboard().place(this.pieceFactory.newPiece(4, Color.WHITE), new Coord(7,1));
+        getChessboard().place(this.pieceFactory.newPiece(4, Color.BLACK), new Coord(2,8));
+        getChessboard().place(this.pieceFactory.newPiece(4, Color.BLACK), new Coord(7,8));
+
     }
 
     /**
