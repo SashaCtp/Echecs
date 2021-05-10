@@ -10,6 +10,7 @@ import game.interfaces.IPiece;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public abstract class Piece implements IPiece {
 
@@ -60,10 +61,7 @@ public abstract class Piece implements IPiece {
         // Si le déplacement ne met pas le roi en danger (en échec)
         // => Pour cela, on effectue le déplacement sur un faux échiquier
         // => Si le roi est en échec : illégal
-        if(putPlayerInCheck(from, to, board, this.getColor()))
-            return false;
-
-        return true;
+        return !putPlayerInCheck(from, to, board, this.getColor());
     }
 
     @Override
@@ -162,7 +160,7 @@ public abstract class Piece implements IPiece {
      * Retourne la liste des directions dans lesquelles la pièce peut se déplacer
      * @return Liste de directions
      */
-    public abstract Direction[] getLegalDirections();
+    public abstract List<Direction> getLegalDirections();
 
     /**
      * Retourne le symbole en minuscule

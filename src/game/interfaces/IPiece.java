@@ -5,6 +5,7 @@ import game.Coord;
 import game.Direction;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface IPiece {
 
@@ -61,5 +62,5 @@ public interface IPiece {
      */
     char getSymbole();
 
-    Direction[] getLegalDirections();
+    List<Direction> getLegalDirections();
 }

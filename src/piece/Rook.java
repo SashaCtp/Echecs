@@ -4,6 +4,9 @@ import game.Color;
 import game.Coord;
 import game.Direction;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Rook extends Piece{
 
     public Rook(Color color) {
@@ -25,13 +28,13 @@ public class Rook extends Piece{
         return 't';
     }
 
-    public Direction[] getLegalDirections(){
-        return new Direction[]{
-                new Direction(1, 0),
-                new Direction(-1, 0),
-                new Direction(0, 1),
-                new Direction(0, -1)
-        };
+    public List<Direction> getLegalDirections(){
+        ArrayList<Direction> directions = new ArrayList<>();
+        directions.add(new Direction(1, 0));
+        directions.add(new Direction(-1, 0));
+        directions.add(new Direction(0,1));
+        directions.add(new Direction(0, -1));
+        return directions;
     }
 
 }

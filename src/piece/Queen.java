@@ -5,6 +5,7 @@ import game.Coord;
 import game.Direction;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Queen extends Piece{
 
@@ -23,7 +24,7 @@ public class Queen extends Piece{
     }
 
     @Override
-    public Direction[] getLegalDirections() {
+    public List<Direction> getLegalDirections() {
         ArrayList<Direction> directions = new ArrayList<>();
         for(int x = -1; x <= 1; x++){
             for(int y = -1; y <= 1; y++){
@@ -33,7 +34,7 @@ public class Queen extends Piece{
 
             }
         }
-        return directions.toArray(new Direction[0]);
+        return directions;
     }
 
     @Override

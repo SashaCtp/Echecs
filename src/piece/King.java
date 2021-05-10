@@ -3,9 +3,9 @@ package piece;
 import game.Color;
 import game.Coord;
 import game.Direction;
-import game.interfaces.IChessboard;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class King extends Piece {
 
@@ -30,7 +30,7 @@ public class King extends Piece {
         return true;
     }
 
-    public Direction[] getLegalDirections(){
+    public List<Direction> getLegalDirections(){
 
         ArrayList<Direction> directions = new ArrayList<>();
 
@@ -45,7 +45,7 @@ public class King extends Piece {
 
         }
 
-        return directions.toArray(new Direction[0]);
+        return directions;
 
     }
 
