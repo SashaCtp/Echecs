@@ -24,7 +24,12 @@ public class Bishop extends Piece {
 
     @Override
     public List<Direction> getLegalDirections() {
-        return new ArrayList<>();
+        ArrayList<Direction> directions = new ArrayList<>();
+        directions.add(new Direction(1,1));
+        directions.add(new Direction(1,-1));
+        directions.add(new Direction(-1,1));
+        directions.add(new Direction(-1,-1));
+        return directions;
     }
 
     @Override
