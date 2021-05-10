@@ -3,10 +3,7 @@ package appli;
 import game.Color;
 import game.interfaces.IPiece;
 import game.interfaces.PieceFactory;
-import piece.Bishop;
-import piece.King;
-import piece.Queen;
-import piece.Rook;
+import piece.*;
 
 public class PieceFact implements PieceFactory {
 
@@ -24,6 +21,8 @@ public class PieceFact implements PieceFactory {
                 return new Rook(color);
             case 3:
                 return new Bishop(color);
+            case 4:
+                return new Knight(color);
             default:
                 return null;
         }

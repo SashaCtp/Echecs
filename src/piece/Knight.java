@@ -3,8 +3,8 @@ package piece;
 import game.Color;
 import game.Coord;
 import game.Direction;
+import game.interfaces.IChessboard;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +12,13 @@ public class Knight extends Piece{
 
     public Knight(Color color) {
         super(color);
+    }
+
+    @Override
+    public boolean isBlocked(Coord from, Coord to, IChessboard board){
+        assert matchPattern(from, to);
+
+        return !board.isFree(to) && board.getPieceAt(to).getColor().equals(getColor());
     }
 
     @Override
