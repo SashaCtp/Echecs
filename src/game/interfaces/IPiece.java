@@ -10,16 +10,6 @@ import java.util.List;
 public interface IPiece {
 
     /**
-     * Vérifie si une pièce peut se déplacer à certaines coordonnées
-     * - Vérifie si le pattern de déplacement est correct
-     * - Vérifie si une pièce alliée ne gêne pas le déplacement
-     * @param from Coordonnées de départ
-     * @param to Coordonnées de destination
-     * @param board Échiquier sur lequel se déplace la pièce
-     */
-    boolean canMove(Coord from, Coord to, IChessboard board);
-
-    /**
      * Vérifie si le déplacement est bloqué par une pièce
      * (le déplacement doit respecter le pattern && être sur le plateau)
      * - De même couleur sur tout le déplacement (case destination inclus)
@@ -27,6 +17,27 @@ public interface IPiece {
      * @return True : Une pièce gêne le déplacement, False sinon
      */
     boolean isBlocked(Coord from, Coord to, IChessboard board);
+
+    /**
+     * Vérifie si une pièce peut atteindre une case de l'échiquier (sans prendre en compte la possibilité d'échec)
+     * C.à.d si le déplacement correspond au pattern et qu'il n'y a pas d'obstacle sur le chemin
+     * @param from Coordonnées de départ
+     * @param to Coordonnées d'arrivée
+     * @param board Échiquier
+     * @return True : La pièce peut l'atteindre, False sinon
+     */
+    boolean canReach(Coord from, Coord to, IChessboard board);
+
+    /**
+     * Vérifie si une pièce peut se déplacer à certaines coordonnées
+     * - Vérifie si le pattern de déplacement est correct
+     * - Vérifie si une pièce alliée ne gêne pas le déplacement
+     * - Vérifie que le déplacement ne met pas le joueur en échec
+     * @param from Coordonnées de départ
+     * @param to Coordonnées de destination
+     * @param board Échiquier sur lequel se déplace la pièce
+     */
+    boolean canMove(Coord from, Coord to, IChessboard board);
 
     /**
      * Vérifie si la pièce est attaquée

@@ -1,5 +1,6 @@
 package piece;
 
+import board.Chessboard;
 import game.Color;
 import game.Coord;
 import game.Direction;
@@ -10,6 +11,23 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class KnightTest {
+
+    @Test
+    void isBlocked(){
+
+        Chessboard chessboard = new Chessboard();
+        Knight k = new Knight(Color.BLACK);
+
+        /* Bug :
+         * Lorsque le roi blanc était en e1, le cavalier noir en g2 => Le roi blanc doit être en échec
+         * -> Cependant il ne l'était pas ...
+         */
+        chessboard.place(new King(Color.WHITE), new Coord(5,1));
+        chessboard.place(k, new Coord(7,2));
+        assertFalse(k.isBlocked(new Coord(7, 2), new Coord(5,1), chessboard));
+        assertTrue(k.canMove(new Coord(7, 2), new Coord(5,1), chessboard));
+        assertTrue(chessboard.isCheck(Color.WHITE));
+    }
 
     @Test
     void matchPattern() {
@@ -32,6 +50,7 @@ class KnightTest {
         assertTrue(k.matchPattern(new Coord(1,1), new Coord(2,3)));
         assertTrue(k.matchPattern(new Coord(8,8), new Coord(6,7)));
         assertTrue(k.matchPattern(new Coord(4,4), new Coord(6,3)));
+        assertTrue(k.matchPattern(new Coord(7,2), new Coord(5,1)));
 
     }
 

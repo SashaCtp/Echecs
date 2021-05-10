@@ -48,20 +48,19 @@ public abstract class Piece implements IPiece {
     }
 
     @Override
+    public boolean canReach(Coord from, Coord to, IChessboard board){
+        return matchPattern(from, to) && !isBlocked(from, to, board);
+    }
+
+    @Override
     public boolean canMove(Coord from, Coord to, IChessboard board) {
-
-        // Si le déplacement correspond au pattern de la piece
-        if(!matchPattern(from, to))
-            return false;
-
-        // S'il n'y a pas d'obstacle sur le chemin
-        if(isBlocked(from, to, board))
-            return false;
 
         // Si le déplacement ne met pas le roi en danger (en échec)
         // => Pour cela, on effectue le déplacement sur un faux échiquier
-        // => Si le roi est en échec : illégal
-        return !putPlayerInCheck(from, to, board, this.getColor());
+        // => Si le roi est en échec (menacé) : illégal
+
+        return canReach(from, to, board) && !putPlayerInCheck(from, to, board, this.getColor());
+
     }
 
     @Override
@@ -119,7 +118,7 @@ public abstract class Piece implements IPiece {
 
         for(HashMap.Entry<Coord, IPiece> entry : chessboard.getColorPieces(Game.getOpponentColor(this.getColor())).entrySet()){
 
-            if(entry.getValue().canMove(entry.getKey(), coord, chessboard))
+            if(entry.getValue().canReach(entry.getKey(), coord, chessboard) && !entry.getKey().equals(coord))
                 return true;
 
         }

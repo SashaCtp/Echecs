@@ -21,6 +21,13 @@ class PieceTest {
     }
 
     @Test
+    void isBlocked(){
+
+        
+
+    }
+
+    @Test
     void isAttacked() {
     }
 
