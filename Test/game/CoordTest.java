@@ -3,6 +3,7 @@ package game;
 import game.exceptions.WrongCoordinatesFormatException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import piece.Direction;
 
 import static org.junit.jupiter.api.Assertions.*;
 

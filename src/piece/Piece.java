@@ -3,7 +3,6 @@ package piece;
 import board.Chessboard;
 import game.Color;
 import game.Coord;
-import game.Direction;
 import game.Game;
 import game.interfaces.IChessboard;
 import game.interfaces.IPiece;
@@ -159,7 +158,7 @@ public abstract class Piece implements IPiece {
      * Retourne la liste des directions dans lesquelles la pièce peut se déplacer
      * @return Liste de directions
      */
-    public abstract List<Direction> getLegalDirections();
+    abstract List<Direction> getLegalDirections();
 
     /**
      * Retourne le symbole en minuscule

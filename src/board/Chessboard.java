@@ -1,12 +1,14 @@
 package board;
 
 import game.Color;
+
+import game.Coord;
+import game.interfaces.IPiece;
+
 import game.exceptions.CoordinatesOutOfBoundsException;
 import game.exceptions.IllegalMoveException;
 import game.exceptions.WrongColorException;
 import game.interfaces.IChessboard;
-import game.Coord;
-import game.interfaces.IPiece;
 import game.exceptions.EmptySquareException;
 
 import java.util.HashMap;

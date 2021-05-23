@@ -2,7 +2,6 @@ package piece;
 
 import game.Color;
 import game.Coord;
-import game.Direction;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

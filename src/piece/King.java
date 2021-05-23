@@ -2,7 +2,6 @@ package piece;
 
 import game.Color;
 import game.Coord;
-import game.Direction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +9,6 @@ import java.util.List;
 public class King extends Piece {
 
     // TODO : Ajouter le ROQUE
-
     public King(Color color){
         super(color);
     }

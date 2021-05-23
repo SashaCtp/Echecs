@@ -2,10 +2,8 @@ package game.interfaces;
 
 import game.Color;
 import game.Coord;
-import game.Direction;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public interface IPiece {
 
@@ -72,6 +70,4 @@ public interface IPiece {
      * @return Symbole de la pièce
      */
     char getSymbole();
-
-    List<Direction> getLegalDirections();
 }

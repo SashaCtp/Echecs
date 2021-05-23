@@ -2,7 +2,6 @@ package piece;
 
 import game.Color;
 import game.Coord;
-import game.Direction;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,7 @@
 package game;
 
 import game.exceptions.WrongCoordinatesFormatException;
+import piece.Direction;
 
 public class Coord{
 

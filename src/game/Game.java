@@ -18,17 +18,48 @@ public class Game {
     private PieceFactory pieceFactory;
     /**
      * Constructor
+     * @param type 1 : PvP, PvE, EvE
      * @param pieceFact Fabrique de pièces d'échec
      * @param chessboardFact Fabrique d'échiquier
      */
-    public Game(PieceFactory pieceFact, ChessboardFactory chessboardFact, PlayerFactory playerFactory){
+    public Game(int type, PieceFactory pieceFact, ChessboardFactory chessboardFact, PlayerFactory playerFactory){
 
         this.pieceFactory = pieceFact;
         this.chessboard = chessboardFact.newChessboard();
 
-        this.players = new IPlayer[]{ playerFactory.newPlayer(0, Color.WHITE), playerFactory.newPlayer(1, Color.BLACK) };
+        IPlayer white;
+        IPlayer black;
+        switch (type){
+            case 1:
+                white = playerFactory.newPlayer(0, Color.WHITE);
+                black = playerFactory.newPlayer(0, Color.BLACK);
+                break;
+            case 2:
+                white = playerFactory.newPlayer(0, Color.WHITE);
+                black = playerFactory.newPlayer(1, Color.BLACK);
+                break;
+            case 3:
+                white = playerFactory.newPlayer(1, Color.WHITE);
+                black = playerFactory.newPlayer(1, Color.BLACK);
+                break;
+            default:
+                white = null;
+                black = null;
+                break;
+        }
+
+        this.players = new IPlayer[]{ white, black };
         this.currentPlayerIndex = 0;
 
+    }
+
+    /**
+     * Par défaut, le type de partie = 1 (Player vs Player)
+     * @param pieceFact Fabrique de pièces d'échec
+     * @param chessboardFact Fabrique d'échiquier
+     */
+    public Game(PieceFactory pieceFact, ChessboardFactory chessboardFact, PlayerFactory playerFactory){
+        this(1, pieceFact, chessboardFact, playerFactory);
     }
 
     /**
@@ -72,8 +103,7 @@ public class Game {
         // Boucle de jeu principale
         while (canPlay(getCurrentPlayer().getColor())){
 
-
-            System.out.println("Au tour du joueur " + getCurrentPlayer().getColor());
+            System.out.println("\n== Au tour du joueur " + getCurrentPlayer().getColor() + " ==");
             getCurrentPlayer().displayBoard(getChessboard());
 
             boolean validAction = false;
@@ -99,6 +129,9 @@ public class Game {
 
         if(isPat(getCurrentPlayer().getColor()))
             System.out.println("Les " + getCurrentPlayer().getColor() + " sont PAT");
+
+        System.out.println("\nEtat final de l'échiquier : ");
+        getCurrentPlayer().displayBoard(getChessboard());
 
     }
 

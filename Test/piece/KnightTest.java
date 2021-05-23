@@ -3,7 +3,6 @@ package piece;
 import board.Chessboard;
 import game.Color;
 import game.Coord;
-import game.Direction;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -69,8 +68,6 @@ class KnightTest {
                 new Direction(2,-1),
                 new Direction(-2,-1),
         };
-
-        System.out.println(directions);
 
         for(int i = 0; i < 8; i++){
             assertTrue(directions.contains(expected[i]));

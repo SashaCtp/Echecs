@@ -1,4 +1,4 @@
-package game;
+package piece;
 
 public class Direction {
 

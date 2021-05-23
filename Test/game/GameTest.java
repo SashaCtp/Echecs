@@ -61,7 +61,7 @@ class GameTest {
         /*
          * Dans cette situation, le roi noir est mat en a8 par les tours blanches en a1 et b3
          */
-        Game game = new Game(null, new ChessboardFact(), new PlayerFact());
+        Game game = new Game(1, null, new ChessboardFact(), new PlayerFact());
 
         // Les noirs n'ont plus de pièce à déplacer : MAT
         game.getChessboard().place(new King(Color.BLACK), new Coord(1,8));

@@ -2,7 +2,6 @@ package piece;
 
 import game.Color;
 import game.Coord;
-import game.Direction;
 import game.interfaces.IChessboard;
 
 import java.util.ArrayList;
