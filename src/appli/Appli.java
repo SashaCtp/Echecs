@@ -1,11 +1,6 @@
 package appli;
 
-import game.Color;
 import game.Game;
-import game.interfaces.IPlayer;
-import player.HumanPlayer;
-
-import javax.sound.midi.Soundbank;
 import java.util.Scanner;
 
 public class Appli {
@@ -19,7 +14,7 @@ public class Appli {
         System.out.println("> 3 - IA VS IA");
         System.out.println("\n Commandes utiles (sauf cas 3) :");
         System.out.println(" - Abandon : /abandon");
-        System.out.println(" - Nulle : /nulle, l'adversaire répond alors par /oui ou /non ");
+        System.out.println(" - Nulle : /nulle, l'adversaire répond alors par /oui s'il veut confirmer, /non sinon");
         System.out.println("");
 
         Game game = new Game(getChoice(), new PieceFact(), new ChessboardFact(), new PlayerFact());

@@ -36,4 +36,9 @@ public class SimpleAI extends Player{
     public void displayBoard(IChessboard board) {
         System.out.println(board);
     }
+
+    @Override
+    public boolean acceptNull() { // Par défaut, les IA refusent la nulle
+        return false;
+    }
 }

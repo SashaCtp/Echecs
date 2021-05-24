@@ -24,4 +24,9 @@ public interface IPlayer {
      * @param board Plateau de jeu
      */
     void displayBoard(IChessboard board);
+
+    /**
+     * Demande d'accepter ou non la nulle
+     */
+    boolean acceptNull();
 }

@@ -12,6 +12,10 @@ public class Game {
     private int currentPlayerIndex;
     private IPlayer[] players;
 
+    // Lorsque les joueurs s'accordent sur une partie nulle, cette variable passe à true
+    private boolean nullGame = false;
+    private boolean abandon = false;
+
     private IChessboard chessboard;
 
     // Factories
@@ -101,7 +105,7 @@ public class Game {
     public void launchGame(){
 
         // Boucle de jeu principale
-        while (canPlay(getCurrentPlayer().getColor())){
+        while (canPlay(getCurrentPlayer().getColor()) && !nullGame && !abandon){
 
             System.out.println("\n== Au tour du joueur " + getCurrentPlayer().getColor() + " ==");
             getCurrentPlayer().displayBoard(getChessboard());
@@ -111,9 +115,25 @@ public class Game {
             while (!validAction){
                 try {
 
-                    Coord[] parsedAction = parseAction(getCurrentPlayer().play(getChessboard()));
-                    getChessboard().move(parsedAction[0], parsedAction[1], getCurrentPlayer().getColor());
-                    validAction = true;
+                    String action = getCurrentPlayer().play(getChessboard());
+
+                    if(action.equals("/nulle")){ // Le joueur propose la nulle
+                        if(getOpponent().acceptNull()){
+                            validAction = true;
+                            nullGame = true;
+                            System.out.println("✅ Votre adversaire a accepté la nulle ! ✅");
+                        }else{
+                            System.out.println("❌ Votre adversaire a refusé la nulle ! ❌");
+                            System.out.println("La partie reprend !");
+                        }
+                    }else if(action.equals("/abandon")) {
+                        abandon = true;
+                        validAction = true;
+                    }else{
+                        Coord[] parsedAction = parseAction(action);
+                        getChessboard().move(parsedAction[0], parsedAction[1], getCurrentPlayer().getColor());
+                        validAction = true;
+                    }
 
                 }catch (Exception e){
                     validAction = false;
@@ -124,15 +144,22 @@ public class Game {
 
         }
 
-        if(isCheckMate(getCurrentPlayer().getColor()))
-            System.out.println("Les " + getCurrentPlayer().getColor() + " sont MAT");
+        displayEndGame();
 
-        if(isPat(getCurrentPlayer().getColor()))
-            System.out.println("Les " + getCurrentPlayer().getColor() + " sont PAT");
+    }
+
+    private void displayEndGame(){
+        if(nullGame)
+            System.out.println("Partie nulle !");
+        else if(abandon) // Lorsque l'abandon est enregistré, on passe au joueur suivant, le joueur courant est donc le gagnat
+            System.out.println("Les " + getCurrentPlayer().getColor() + " gagnent par abandon !");
+        else if(isCheckMate(getCurrentPlayer().getColor()))
+            System.out.println("Les " + getCurrentPlayer().getColor() + " sont MAT !");
+        else if(isPat(getCurrentPlayer().getColor()))
+            System.out.println("Les " + getCurrentPlayer().getColor() + " sont PAT !");
 
         System.out.println("\nEtat final de l'échiquier : ");
         getCurrentPlayer().displayBoard(getChessboard());
-
     }
 
     private Coord[] parseAction(String playerAction) throws InvalidPlayerInput, WrongCoordinatesFormatException, CoordinatesOutOfBoundsException {
@@ -242,6 +269,13 @@ public class Game {
      */
     public IChessboard getChessboard(){
         return this.chessboard;
+    }
+
+    /**
+     * Renvoie le joueur opposé au joueur courant
+     */
+    public IPlayer getOpponent(){
+        return players[(currentPlayerIndex+1)%2];
     }
 
     /**
